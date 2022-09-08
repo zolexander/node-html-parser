@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/taoqf/node-fast-html-parser/compare/v5.4.2-0...v6.0.0) (2022-09-08)
+
+
+### Bug Fixes
+
+* Preserve invalid nested A tags in AST (see [#215](https://github.com/taoqf/node-fast-html-parser/issues/215) for detail) ([374188f](https://github.com/taoqf/node-fast-html-parser/commit/374188f1c6d6c6d0567348b8e8d20957f5a93fb8))
+
 ### [5.4.2](https://github.com/taoqf/node-fast-html-parser/compare/v5.4.2-0...v5.4.2) (2022-08-30)
 
 ## [5.1.0](https://github.com/taoqf/node-fast-html-parser/compare/v4.1.5...v5.1.0) (2021-10-28)
