@@ -17,10 +17,7 @@ export {
 	NodeType
 };
 
-export default function parse(data: string, options = {
-	lowerCaseTagName: false,
-	comment: false
-} as Partial<Options>) {
+export default function parse(data: string, options = {} as Partial<Options>) {
 	return baseParse(data, options);
 }
 

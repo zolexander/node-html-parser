@@ -984,8 +984,8 @@ const kElementsClosedByClosing = {
 };
 
 export interface Options {
-	lowerCaseTagName: boolean;
-	comment: boolean;
+	lowerCaseTagName?: boolean;
+	comment?: boolean;
 	/**
 	 * @see PR #215 for explanation
 	 */
@@ -1014,7 +1014,7 @@ const frameflag = 'documentfragmentcontainer';
  * @param  {string} data      html
  * @return {HTMLElement}      root element
  */
-export function base_parse(data: string, options = { lowerCaseTagName: false, comment: false } as Partial<Options>) {
+export function base_parse(data: string, options = {} as Partial<Options>) {
 	const voidTag = new VoidTag(options?.voidTag?.closingSlash, options?.voidTag?.tags);
 	const elements = options.blockTextElements || {
 		script: true,
@@ -1180,7 +1180,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
  * Parses HTML and returns a root element
  * Parse a chuck of HTML source.
  */
-export function parse(data: string, options = { lowerCaseTagName: false, comment: false } as Partial<Options>) {
+export function parse(data: string, options = {} as Partial<Options>) {
 	const stack = base_parse(data, options);
 
 	const [root] = stack;
