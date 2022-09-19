@@ -37,6 +37,27 @@ describe('HTML Parser', function () {
 			root.firstChild.should.eql(div);
 		});
 
+		it.skip('FIXME should parse "<DIV><a><img/></A><p></P></div>" and return root element', function () {
+
+			// set _defaultParseOptions,
+			// so we dont have to pass parseOptions to every `new HTMLElement(...)`
+			// FIXME _defaultParseOptions is not used
+			HTMLElement._defaultParseOptions.lowerCaseTagName.should.eql(false);
+			HTMLElement._defaultParseOptions.lowerCaseTagName = true;
+
+			const root = parseHTML('<DIV><a><img/></A><p></P></div>');
+
+			const div = new HTMLElement('div', {}, '', root);
+
+			const a = div.appendChild(new HTMLElement('a', {}, ''));
+			const img = a.appendChild(new HTMLElement('img', {}, ''));
+			const p = div.appendChild(new HTMLElement('p', {}, ''));
+
+			root.firstChild.should.eql(div);
+
+			HTMLElement._defaultParseOptions.lowerCaseTagName = false;
+		});
+
 		it('should deal uppercase', function () {
 			HTMLElement._defaultParseOptions.comment.should.eql(false);
 
