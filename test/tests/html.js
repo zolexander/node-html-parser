@@ -89,6 +89,53 @@ describe('HTML Parser', function () {
 			root.firstChild.should.eql(div);
 		});
 
+		// yarn test:target -g 'should parse HTML comments in *'
+
+		it('should parse HTML comments in insertAdjacentHTML', function () {
+			const root = parseHTML('<div></div>', { comment: true });
+			const div = root.querySelector('div');
+			div.insertAdjacentHTML('afterend', '<!-- my comment -->');
+			root.toString().should.eql('<div></div><!-- my comment -->');
+			div.nextSibling.toString().should.eql('<!-- my comment -->');
+		});
+
+		it('should parse HTML comments in set innerHTML', function () {
+			const root = parseHTML('<div></div>', { comment: true });
+			const div = root.querySelector('div');
+			div.innerHTML = '<!-- my comment -->';
+			root.toString().should.eql('<div><!-- my comment --></div>');
+			div.firstChild.toString().should.eql('<!-- my comment -->');
+		});
+
+		it('should parse HTML comments in set_content', function () {
+			const root = parseHTML('<div></div>', { comment: true });
+			const div = root.querySelector('div');
+			div.set_content('<!-- my comment -->');
+			root.toString().should.eql('<div><!-- my comment --></div>');
+			div.firstChild.toString().should.eql('<!-- my comment -->');
+		});
+
+		it('should parse HTML comments NOT in set_content with option comment=false', function () {
+			const root = parseHTML('<div></div>', { comment: true });
+			const div = root.querySelector('div');
+			div.set_content('<!-- my comment -->', { comment: false });
+			root.toString().should.eql('<div></div>');
+		});
+
+		it('should parse HTML comments in replaceWith', function () {
+			const root = parseHTML('<div></div>', { comment: true });
+			const div = root.querySelector('div');
+			div.replaceWith('<!-- my comment -->');
+			root.toString().should.eql('<!-- my comment -->');
+		});
+
+		it('should parse HTML comments in clone', function () {
+			const root = parseHTML('<div><!-- my comment --></div>', { comment: true });
+			const div = root.querySelector('div');
+			const clone = div.clone();
+			clone.toString().should.eql('<div><!-- my comment --></div>');
+		});
+
 		it('should parse picture element', function () {
 
 			const root = parseHTML('<picture><source srcset="/images/example-1.jpg 1200w, /images/example-2.jpg 1600w" sizes="100vw"><img src="/images/example.jpg" alt="Example"/></picture>');
