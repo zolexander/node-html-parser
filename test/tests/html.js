@@ -37,12 +37,12 @@ describe('HTML Parser', function () {
 			root.firstChild.should.eql(div);
 		});
 
-		it.skip('FIXME should parse "<DIV><a><img/></A><p></P></div>" and return root element', function () {
+		it.skip('TODO implement: should use HTMLElement._defaultParseOptions', function () {
 
 			// set _defaultParseOptions,
 			// so we dont have to pass parseOptions to every `new HTMLElement(...)`
 			// FIXME _defaultParseOptions is not used
-			HTMLElement._defaultParseOptions.lowerCaseTagName.should.eql(false);
+			should(HTMLElement._defaultParseOptions.lowerCaseTagName).be.undefined();
 			HTMLElement._defaultParseOptions.lowerCaseTagName = true;
 
 			const root = parseHTML('<DIV><a><img/></A><p></P></div>');
@@ -55,11 +55,12 @@ describe('HTML Parser', function () {
 
 			root.firstChild.should.eql(div);
 
-			HTMLElement._defaultParseOptions.lowerCaseTagName = false;
+			// cleanup? remove key from _defaultParseOptions object?
+			//HTMLElement._defaultParseOptions.lowerCaseTagName = undefined;
 		});
 
 		it('should deal uppercase', function () {
-			HTMLElement._defaultParseOptions.comment.should.eql(false);
+			//should(HTMLElement._defaultParseOptions.comment).be.undefined();
 
 			const html = '<HTML xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt-br"><HEAD><TITLE>SISREG III</TITLE><META http-equiv="Content-Type" content="text/html; charset=UTF-8" /><META http-equiv="Content-Language" content="pt-BR" /><LINK rel="stylesheet" href="/css/estilo.css" type="text/css"><SCRIPT type="text/javascript" src="/javascript/jquery.js" charset="utf-8"></SCRIPT><SCRIPT LANGUAGE=\'JavaScript\'></SCRIPT></HEAD><BODY link=\'#0000AA\' vlink=\'#0000AA\'><CENTER><h1>CONSULTA AO CADASTRO DE PACIENTES SUS</h1></CENTER><DIV id=\'progress_div\'><BR><BR><CENTER><IMG src=\'/imagens/loading.gif\' /></CENTER><CENTER><SPAN style=\'font-size: 80%\'>Processando...</SPAN></CENTER><BR><BR></DIV></BODY></HTML>';
 
@@ -97,9 +98,10 @@ describe('HTML Parser', function () {
 		it('should parse "<div><a><!-- my comment --></a></div>" and return root element with comments', function () {
 			const root = parseHTML('<div><a><!-- my comment --></a></div>', { comment: true });
 
-			const div = new HTMLElement('div', {}, '', root);
-			const a = div.appendChild(new HTMLElement('a', {}, ''));
-			const comment = a.appendChild(new CommentNode(' my comment '));
+			const u = undefined;
+			const div = new HTMLElement('div', {}, '', root, u, u, { comment: true });
+			const a = div.appendChild(new HTMLElement('a', {}, '', u, u, u, { comment: true }));
+			const comment = a.appendChild(new CommentNode(' my comment ', u, u, u, u, u, { comment: true }));
 
 			root.firstChild.should.eql(div);
 		});
@@ -140,11 +142,27 @@ describe('HTML Parser', function () {
 			div.firstChild.toString().should.eql('<!-- my comment -->');
 		});
 
-		it('should parse HTML comments NOT in set_content with option comment=false', function () {
+		it('should parse HTML comments in set_content - comment in div', function () {
 			const root = parseHTML('<div></div>', { comment: true });
 			const div = root.querySelector('div');
+			div.set_content('<div><!-- my comment --></div>');
+			root.toString().should.eql('<div><div><!-- my comment --></div></div>');
+			div.firstChild.toString().should.eql('<div><!-- my comment --></div>');
+		});
+
+		it('FIXME should parse HTML comments NOT in set_content with option comment=false', function () {
+			const root = parseHTML('<div></div>', { comment: true });
+			const div = root.querySelector('div');
+			// FIXME should strip comment root node
 			div.set_content('<!-- my comment -->', { comment: false });
 			root.toString().should.eql('<div></div>');
+		});
+
+		it('should parse HTML comments NOT in set_content with option comment=false - comment in div', function () {
+			const root = parseHTML('<div></div>', { comment: true });
+			const div = root.querySelector('div');
+			div.set_content('<div><!-- my comment --></div>', { comment: false });
+			root.toString().should.eql('<div><div></div></div>');
 		});
 
 		it('should parse HTML comments in replaceWith', function () {
