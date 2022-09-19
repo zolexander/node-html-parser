@@ -371,6 +371,7 @@ export default class HTMLElement extends Node {
 			...resetParent(content, parent),
 			...parent.childNodes.slice(idx + 1),
 		];
+		return this;
 	}
 
 	public get outerHTML() {
@@ -770,6 +771,7 @@ export default class HTMLElement extends Node {
 		if (key === 'id') {
 			this.id = value;
 		}
+		return this;
 	}
 
 	/**

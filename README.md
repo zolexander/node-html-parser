@@ -101,186 +101,266 @@ Parse the data provided, and return the root of the generated DOM.
 
 Parse the data provided, return true if the given data is valid, and return false if not.
 
+## Class
+
+```mermaid
+classDiagram
+direction TB
+class HTMLElement{
+	this trimRight()
+	this removeWhitespace()
+	Node[] querySelectorAll(string selector)
+	Node querySelector(string selector)
+	HTMLElement[] getElementsByTagName(string tagName)
+	Node closest(string selector)
+	Node appendChild(Node node)
+	this insertAdjacentHTML('beforebegin' | 'afterbegin' | 'beforeend' | 'afterend' where, string html)
+	this setAttribute(string key, string value)
+	this setAttributes(Record~string, string~ attrs)
+	this removeAttribute(string key)
+	string getAttribute(string key)
+	this exchangeChild(Node oldNode, Node newNode)
+	this removeChild(Node node)
+	string toString()
+	this set_content(string content)
+	this set_content(Node content)
+	this set_content(Node[] content)
+	this remove()
+	this replaceWith((string | Node)[] ...nodes)
+	ClassList classList
+	HTMLElement clone()
+	HTMLElement getElementById(string id)
+	string text
+	string rawText
+	string tagName
+	string structuredText
+	string structure
+	Node firstChild
+	Node lastChild
+	Node nextSibling
+	HTMLElement nextElementSibling
+	Node previousSibling
+	HTMLElement previousElementSibling
+	string innerHTML
+	string outerHTML
+	string textContent
+	Record~string, string~ attributes
+	[number, number] range
+}
+class Node{
+	<<abstract>>
+	string toString()
+	Node clone()
+	this remove()
+	number nodeType
+	string innerText
+	string textContent
+}
+class ClassList{
+	add(string c)
+	replace(string c1, string c2)
+	remove(string c)
+	toggle(string c)
+	boolean contains(string c)
+	number length
+	string[] value
+	string toString()
+}
+class CommentNode{
+	CommentNode clone()
+	string toString()
+}
+class TextNode{
+	TextNode clone()
+	string toString()
+	string rawText
+	string trimmedRawText
+	string trimmedText
+	string text
+	boolean isWhitespace
+}
+Node --|> HTMLElement
+Node --|> CommentNode
+Node --|> TextNode
+Node ..> ClassList
+```
+
 ## HTMLElement Methods
 
-### HTMLElement#trimRight()
+### trimRight()
 
 Trim element from right (in block) after seeing pattern in a TextNode.
 
-### HTMLElement#removeWhitespace()
+### removeWhitespace()
 
 Remove whitespaces in this sub tree.
 
-### HTMLElement#querySelectorAll(selector)
+### querySelectorAll(selector)
 
 Query CSS selector to find matching nodes.
 
 Note: Full range of CSS3 selectors supported since v3.0.0.
 
-### HTMLElement#querySelector(selector)
+### querySelector(selector)
 
 Query CSS Selector to find matching node.
 
-### HTMLElement#getElementsByTagName(tagName)
+### getElementsByTagName(tagName)
 
 Get all elements with the specified tagName.
 
 Note: Use * for all elements.
 
-### HTMLElement#closest(selector)
+### closest(selector)
 
 Query closest element by css selector.
 
-### HTMLElement#appendChild(node)
+### appendChild(node)
 
 Append a child node to childNodes
 
-### HTMLElement#insertAdjacentHTML(where, html)
+### insertAdjacentHTML(where, html)
 
 Parses the specified text as HTML and inserts the resulting nodes into the DOM tree at a specified position.
 
-### HTMLElement#setAttribute(key: string, value: string)
+### setAttribute(key: string, value: string)
 
 Set `value` to `key` attribute.
 
-### HTMLElement#setAttributes(attrs: Record<string, string>)
+### setAttributes(attrs: Record<string, string>)
 
 Set attributes of the element.
 
-### HTMLElement#removeAttribute(key: string)
+### removeAttribute(key: string)
 
 Remove `key` attribute.
 
-### HTMLElement#getAttribute(key: string)
+### getAttribute(key: string)
 
 Get `key` attribute.
 
-### HTMLElement#exchangeChild(oldNode: Node, newNode: Node)
+### exchangeChild(oldNode: Node, newNode: Node)
 
 Exchanges given child with new child.
 
-### HTMLElement#removeChild(node: Node)
+### removeChild(node: Node)
 
 Remove child node.
 
-### HTMLElement#toString()
+### toString()
 
 Same as [outerHTML](#htmlelementouterhtml)
 
-### HTMLElement#set_content(content: string | Node | Node[])
+### set_content(content: string | Node | Node[])
 
 Set content. **Notice**: Do not set content of the **root** node.
 
-### HTMLElement#remove()
+### remove()
 
 Remove current element.
 
-### HTMLElement#replaceWith(...nodes: (string | Node)[])
+### replaceWith(...nodes: (string | Node)[])
 
 Replace current element with other node(s).
 
-### HTMLElement#classList
+### classList
 
-#### HTMLElement#classList.add
+#### classList.add
 
 Add class name.
 
-#### HTMLElement#classList.replace(old: string, new: string)
+#### classList.replace(old: string, new: string)
 
 Replace class name with another one.
 
-#### HTMLElement#classList.remove()
+#### classList.remove()
 
 Remove class name.
 
-#### HTMLElement#classList.toggle(className: string):void
+#### classList.toggle(className: string):void
 
 Toggle class. Remove it if it is already included, otherwise add.
 
-#### HTMLElement#classList.contains(className: string): boolean
+#### classList.contains(className: string): boolean
 
 Returns true if the classname is already in the classList.
 
-#### HTMLElement#classList.values()
+#### classList.value
 
 Get class names.
 
-#### Node#clone()
+#### clone()
 
 Clone a node.
 
-#### Node#getElementById(id: string): HTMLElement;
+#### getElementById(id: string): HTMLElement;
 
 Get element by it's ID.
 
 ## HTMLElement Properties
 
-### HTMLElement#text
+### text
 
 Get unescaped text value of current node and its children. Like `innerText`.
 (slow for the first time)
 
-### HTMLElement#rawText
+### rawText
 
 Get escaped (as-is) text value of current node and its children. May have
 `&amp;` in it. (fast)
 
-### HTMLElement#tagName
+### tagName
 
 Get or Set tag name of HTMLElement. Notice: the returned value would be an uppercase string.
 
-### HTMLElement#structuredText
+### structuredText
 
 Get structured Text.
 
-### HTMLElement#structure
+### structure
 
 Get DOM structure.
 
-### HTMLElement#firstChild
+### firstChild
 
 Get first child node.
 
-### HTMLElement#lastChild
+### lastChild
 
 Get last child node.
 
-### HTMLElement#innerHTML
+### innerHTML
 
 Set or Get innerHTML.
 
-### HTMLElement#outerHTML
+### outerHTML
 
 Get outerHTML.
 
-### HTMLElement#nextSibling
+### nextSibling
 
 Returns a reference to the next child node of the current element's parent.
 
-### HTMLElement#nextElementSibling
+### nextElementSibling
 
 Returns a reference to the next child element of the current element's parent.
 
-### HTMLElement#previousSibling
+### previousSibling
 
 Returns a reference to the previous child node of the current element's parent.
 
-### HTMLElement#previousElementSibling
+### previousElementSibling
 
 Returns a reference to the previous child element of the current element's parent.
 
-### HTMLElement#textContent
+### textContent
 
 Get or Set textContent of current element, more efficient than [set_content](#htmlelementset_contentcontent-string--node--node).
 
-### HTMLElement#attributes
+### attributes
 
 Get all attributes of current element. **Notice: do not try to change the returned value.**
 
-### HTMLElement#classList
-
-Get all attributes of current element. **Notice: do not try to change the returned value.**
-
-### HTMLElement#range
+### range
 
 Corresponding source code start and end indexes (ie [ 0, 40 ])
