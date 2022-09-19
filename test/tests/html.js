@@ -107,8 +107,9 @@ describe('HTML Parser', function () {
 		it('should not parse HTML inside comments', function () {
 			const root = parseHTML('<div><!--<a></a>--></div>', { comment: true });
 
-			const div = new HTMLElement('div', {}, '', root);
-			const comment = div.appendChild(new CommentNode('<a></a>'));
+			const u = undefined;
+			const div = new HTMLElement('div', {}, '', root, u, u, { comment: true });
+			const comment = div.appendChild(new CommentNode('<a></a>', u, u, u, u, u, { comment: true }));
 
 			root.firstChild.should.eql(div);
 		});
