@@ -253,6 +253,7 @@ describe('HTML Parser', function () {
 		});
 
 		it('should parse table currect', function () {
+			this.timeout(4000); // pass test on slow CPUs
 			const root = parseHTML(fs.readFileSync(__dirname + '/../assets/html/tables.html').toString(), {
 				script: true
 			});
