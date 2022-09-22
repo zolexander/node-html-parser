@@ -121,4 +121,4 @@ export default {
 	hasAttrib,
 	findOne,
 	findAll
-} as Adapter<Node, HTMLElement>;
+} as unknown as Adapter<Node, HTMLElement>;
