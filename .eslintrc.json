@@ -44,6 +44,7 @@
 		"consistent-return": "off",
 		"camelcase": "off",
 		"@typescript-eslint/camelcase": "off",
+		"@typescript-eslint/no-this-alias": "off",
 		"curly": [
 			"error",
 			"multi-line",
