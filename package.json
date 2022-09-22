@@ -8,7 +8,7 @@
 		"compile": "tsc",
 		"build": "npm run lint && npm run clean && npm run compile:cjs && npm run compile:amd",
 		"compile:cjs": "tsc -m commonjs",
-		"watch": "npx tsc -m commonjs --watch",
+		"watch": "npx tsc -m commonjs --watch --preserveWatchOutput",
 		"compile:amd": "tsc -t es5 -m amd -d false --outFile ./dist/main.js",
 		"lint": "eslint ./src/*.ts ./src/**/*.ts",
 		"---------------": "",
