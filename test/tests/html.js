@@ -150,10 +150,9 @@ describe('HTML Parser', function () {
 			div.firstChild.toString().should.eql('<div><!-- my comment --></div>');
 		});
 
-		it('FIXME should parse HTML comments NOT in set_content with option comment=false', function () {
+		it('should parse HTML comments NOT in set_content with option comment=false', function () {
 			const root = parseHTML('<div></div>', { comment: true });
 			const div = root.querySelector('div');
-			// FIXME should strip comment root node
 			div.set_content('<!-- my comment -->', { comment: false });
 			root.toString().should.eql('<div></div>');
 		});
