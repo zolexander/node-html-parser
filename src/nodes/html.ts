@@ -343,7 +343,7 @@ export default class HTMLElement extends Node {
 		} else if (typeof content == 'string') {
 			options = { ...this._parseOptions, ...options };
 			const r = parse(content, options);
-			content = r.childNodes.length ? r.childNodes : [new TextNode(content, this)];
+			content = r.childNodes.length ? r.childNodes : [new TextNode(r.innerHTML, this)];
 		}
 		resetParent(this.childNodes, null);
 		resetParent(content, this);
