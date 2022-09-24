@@ -137,6 +137,7 @@ class DOMTokenList {
 export default class HTMLElement extends Node {
 	private _attrs: Attributes;
 	private _rawAttrs: RawAttributes;
+	private _parseOptions: Partial<Options>;
 	public rawTagName: string; // there is not friend funciton in es
 	public id: string;
 	public classList: DOMTokenList;
@@ -173,13 +174,15 @@ export default class HTMLElement extends Node {
 		public rawAttrs = '',
 		parentNode: HTMLElement | null,
 		range: [number, number],
-		private voidTag = new VoidTag()
+		private voidTag = new VoidTag(),
+		_parseOptions = {} as Partial<Options>
 	) {
 		super(parentNode, range);
 		this.rawTagName = tagName;
 		this.rawAttrs = rawAttrs || '';
 		this.id = keyAttrs.id || '';
 		this.childNodes = [];
+		this._parseOptions = _parseOptions;
 		this.classList = new DOMTokenList(
 			keyAttrs.class ? keyAttrs.class.split(/\s+/) : [],
 			(classList) => this.setAttribute('class', classList.toString()) // eslint-disable-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -327,8 +330,7 @@ export default class HTMLElement extends Node {
 	}
 
 	public set innerHTML(content: string) {
-		//const r = parse(content, global.options); // TODO global.options ?
-		const r = parse(content);
+		const r = parse(content, this._parseOptions);
 		const nodes = r.childNodes.length ? r.childNodes : [new TextNode(content, this)];
 		resetParent(nodes, this);
 		resetParent(this.childNodes, null);
@@ -339,8 +341,9 @@ export default class HTMLElement extends Node {
 		if (content instanceof Node) {
 			content = [content];
 		} else if (typeof content == 'string') {
+			options = { ...this._parseOptions, ...options };
 			const r = parse(content, options);
-			content = r.childNodes.length ? r.childNodes : [new TextNode(content, this)];
+			content = r.childNodes.length ? r.childNodes : [new TextNode(r.innerHTML, this)];
 		}
 		resetParent(this.childNodes, null);
 		resetParent(content, this);
@@ -355,8 +358,7 @@ export default class HTMLElement extends Node {
 				if (node instanceof Node) {
 					return [node];
 				} else if (typeof node == 'string') {
-					// const r = parse(content, global.options); // TODO global.options ?
-					const r = parse(node);
+					const r = parse(node, this._parseOptions);
 					return r.childNodes.length ? r.childNodes : [new TextNode(node, this)];
 				}
 				return [];
@@ -802,7 +804,7 @@ export default class HTMLElement extends Node {
 		if (arguments.length < 2) {
 			throw new Error('2 arguments required');
 		}
-		const p = parse(html);
+		const p = parse(html, this._parseOptions);
 		if (where === 'afterend') {
 			const idx = this.parentNode.childNodes.findIndex((child) => {
 				return child === this;
@@ -903,7 +905,7 @@ export default class HTMLElement extends Node {
 	 * Clone this Node
 	 */
 	public clone() {
-		return parse(this.toString()).firstChild;
+		return parse(this.toString(), this._parseOptions).firstChild;
 	}
 }
 
@@ -982,8 +984,8 @@ const kElementsClosedByClosing = {
 };
 
 export interface Options {
-	lowerCaseTagName: boolean;
-	comment: boolean;
+	lowerCaseTagName?: boolean;
+	comment?: boolean;
 	/**
 	 * @see PR #215 for explanation
 	 */
@@ -1012,7 +1014,7 @@ const frameflag = 'documentfragmentcontainer';
  * @param  {string} data      html
  * @return {HTMLElement}      root element
  */
-export function base_parse(data: string, options = { lowerCaseTagName: false, comment: false } as Partial<Options>) {
+export function base_parse(data: string, options = {} as Partial<Options>) {
 	const voidTag = new VoidTag(options?.voidTag?.closingSlash, options?.voidTag?.tags);
 	const elements = options.blockTextElements || {
 		script: true,
@@ -1033,7 +1035,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 	}
 
 	const createRange = (startPos: number, endPos: number): [number, number] => [startPos - frameFlagOffset, endPos - frameFlagOffset];
-	const root = new HTMLElement(null, {}, '', null, [0, data.length], voidTag);
+	const root = new HTMLElement(null, {}, '', null, [0, data.length], voidTag, options);
 
 	let currentParent = root;
 	const stack = [root];
@@ -1116,7 +1118,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
 
 			currentParent = currentParent.appendChild(
 				// Initialize range (end position updated later for closed tags)
-				new HTMLElement(tagName, attrs, attributes.slice(1), null, createRange(tagStartPos, tagEndPos), voidTag)
+				new HTMLElement(tagName, attrs, attributes.slice(1), null, createRange(tagStartPos, tagEndPos), voidTag, options)
 			);
 			stack.push(currentParent);
 
@@ -1178,7 +1180,7 @@ export function base_parse(data: string, options = { lowerCaseTagName: false, co
  * Parses HTML and returns a root element
  * Parse a chuck of HTML source.
  */
-export function parse(data: string, options = { lowerCaseTagName: false, comment: false } as Partial<Options>) {
+export function parse(data: string, options = {} as Partial<Options>) {
 	const stack = base_parse(data, options);
 
 	const [root] = stack;

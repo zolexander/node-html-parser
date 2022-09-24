@@ -1,5 +1,5 @@
 import benchmark from 'htmlparser-benchmark';
-import htmlparser2 from "htmlparser2";
+import * as htmlparser2 from "htmlparser2";
 
 const { Parser } = htmlparser2;
 

@@ -1,5 +1,5 @@
 import benchmark from 'htmlparser-benchmark';
-import parse5 from "parse5";
+import * as parse5 from "parse5";
 
 export default function parse() {
 	return new Promise((res) => {
