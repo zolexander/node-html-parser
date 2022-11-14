@@ -24,7 +24,8 @@
 		"test:target": "mocha --recursive \"./test/tests\"",
 		"test:ci": "cross-env TEST_TARGET=dist yarn run test:target",
 		"posttest": "yarn run benchmark",
-		"prepare": "cd test && yarn install"
+		"prepare": "cd test && yarn install",
+		"release": "standard-version && git push --follow-tags origin main"
 	},
 	"keywords": [
 		"html",
