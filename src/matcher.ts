@@ -80,7 +80,7 @@ function hasAttrib(elem: HTMLElement, name: string) {
 function findOne(test: Predicate, elems: Node[]) {
 	let elem = null as HTMLElement | null;
 
-	for (let i = 0, l = elems.length; i < l && !elem; i++) {
+	for (let i = 0, l = elems?.length; i < l && !elem; i++) {
 		const el = elems[i];
 		if (test(el)) {
 			elem = el;
