@@ -616,7 +616,7 @@ export default class HTMLElement extends Node {
 				},
 			});
 			if (e) {
-				return e;
+				return e as HTMLElement;
 			}
 			el = el.parentNode;
 		}
