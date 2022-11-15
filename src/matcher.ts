@@ -1,4 +1,4 @@
-import { Adapter/*, Predicate*/ } from 'css-select/lib/types';
+import { Adapter /*, Predicate*/ } from 'css-select/lib/types';
 import HTMLElement from './nodes/html';
 import Node from './nodes/node';
 import NodeType from './nodes/type';
@@ -70,7 +70,7 @@ function existsOne(test: Predicate, elems: Node[]): boolean {
 
 function getSiblings(node: Node) {
 	const parent = getParent(node);
-	return parent && getChildren(parent);
+	return parent ? getChildren(parent) : [];
 }
 
 function hasAttrib(elem: HTMLElement, name: string) {
