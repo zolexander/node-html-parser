@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { parse } = require('@test/test-target');
 
-describe.only('issue 224', function () {
+describe('issue 224', function () {
 	it('query', function () {
 		const html = fs.readFileSync(__dirname + '/../../assets/html/melon.html', 'utf-8');
 		const root = parse(html);
