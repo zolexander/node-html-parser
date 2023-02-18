@@ -696,7 +696,7 @@ export default class HTMLElement extends Node {
 				const key = match[1];
 				let val = match[2] || null;
 				if (val && (val[0] === `'` || val[0] === `"`)) val = val.slice(1, val.length - 1);
-				attrs[key] = val;
+				attrs[key] = attrs[key] || val;
 			}
 		}
 		this._rawAttrs = attrs;
