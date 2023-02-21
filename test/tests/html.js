@@ -333,6 +333,11 @@ describe('HTML Parser', function () {
 				root.firstChild.getAttribute('a').should.eql('a1b');
 			});
 
+			it('should return value of the first attribute', function () {
+				const root = parseHTML('<p a="a1b" a="fail"></p>');
+				root.firstChild.getAttribute('a').should.eql('a1b');
+			});
+
 			it('should return null when there is no such attribute', function () {
 				const root = parseHTML('<p></p>');
 				should.equal(root.firstChild.getAttribute('b'), null);
