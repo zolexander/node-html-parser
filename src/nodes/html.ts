@@ -941,7 +941,7 @@ const kSelfClosingElements = {
 	TRACK: true,
 	wbr: true,
 	WBR: true,
-};
+} as Record<string, boolean>;
 const kElementsClosedByOpening = {
 	li: { li: true, LI: true },
 	LI: { li: true, LI: true },
@@ -965,7 +965,7 @@ const kElementsClosedByOpening = {
 	H5: { h5: true, H5: true },
 	h6: { h6: true, H6: true },
 	H6: { h6: true, H6: true },
-};
+} as Record<string, Record<string, boolean>>;
 const kElementsClosedByClosing = {
 	li: { ul: true, ol: true, UL: true, OL: true },
 	LI: { ul: true, ol: true, UL: true, OL: true },
@@ -981,7 +981,7 @@ const kElementsClosedByClosing = {
 	TD: { tr: true, table: true, TR: true, TABLE: true },
 	th: { tr: true, table: true, TR: true, TABLE: true },
 	TH: { tr: true, table: true, TR: true, TABLE: true },
-};
+} as Record<string, Record<string, boolean>>;
 
 export interface Options {
 	lowerCaseTagName?: boolean;
@@ -1088,7 +1088,7 @@ export function base_parse(data: string, options = {} as Partial<Options>) {
 		// Handle opening tags (ie. <this> not </that>)
 		if (!leadingSlash) {
 			/* Populate attributes */
-			const attrs = {};
+			const attrs = {} as Record<string, string>;
 			for (let attMatch; (attMatch = kAttributePattern.exec(attributes));) {
 				const { 1: key, 2: val } = attMatch;
 				const isQuoted = val[0] === `'` || val[0] === `"`;
