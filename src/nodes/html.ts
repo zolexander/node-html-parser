@@ -158,7 +158,7 @@ export default class HTMLElement extends Node {
 			return 'null';
 		}
 
-		return JSON.stringify(attr.replace(/"/g, '&quot;'));
+		return JSON.stringify(attr.replace(/"/g, '&quot;')).replace(/\\t/g, '\t').replace(/\\n/g, '\n').replace(/\\r/g, '\r');
 	}
 
 	/**
