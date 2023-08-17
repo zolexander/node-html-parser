@@ -158,7 +158,7 @@ export default class HTMLElement extends Node {
 			return 'null';
 		}
 
-		return JSON.stringify(attr.replace(/"/g, '&quot;')).replace(/\\t/g, '\t').replace(/\\n/g, '\n').replace(/\\r/g, '\r');
+		return JSON.stringify(attr.replace(/"/g, '&quot;')).replace(/\\t/g, '\t').replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/\\/g, '');
 	}
 
 	/**
@@ -713,7 +713,7 @@ export default class HTMLElement extends Node {
 		// Update rawString
 		this.rawAttrs = Object.keys(attrs)
 			.map((name) => {
-				const val = JSON.stringify(attrs[name]);
+				const val = this.quoteAttribute(attrs[name]);
 				if (val === undefined || val === 'null') {
 					return name;
 				}
