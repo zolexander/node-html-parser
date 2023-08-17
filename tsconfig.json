@@ -56,9 +56,6 @@
 		"stripInternal": false,
 		"suppressExcessPropertyErrors": false,
 		"traceResolution": false,
-		"typeRoots": [ ],
-		"types": [
-			"node"
-		]
+		"typeRoots": [ ]
 	}
 }
