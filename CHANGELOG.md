@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.1.6](https://github.com/taoqf/node-fast-html-parser/compare/v6.1.5...v6.1.6) (2023-08-17)
+
+
+### Bug Fixes
+
+* [#203](https://github.com/taoqf/node-fast-html-parser/issues/203) ([6006c52](https://github.com/taoqf/node-fast-html-parser/commit/6006c52c20e6c3c07405c808c8d81fa78425e794))
+* [#218](https://github.com/taoqf/node-fast-html-parser/issues/218) ([6f6c824](https://github.com/taoqf/node-fast-html-parser/commit/6f6c824df54fa53af47956048b42ea47cd3b53bf))
+* add tests for issue [#242](https://github.com/taoqf/node-fast-html-parser/issues/242) ([7615e27](https://github.com/taoqf/node-fast-html-parser/commit/7615e27e3eea47142beff11101d293c4f93cb6ce))
+* do not decode special chractors [#240](https://github.com/taoqf/node-fast-html-parser/issues/240) ([cdadb13](https://github.com/taoqf/node-fast-html-parser/commit/cdadb132f681ca587d17df991d09ff8d22997f4e))
+* improve constructor types [#230](https://github.com/taoqf/node-fast-html-parser/issues/230) ([24fd055](https://github.com/taoqf/node-fast-html-parser/commit/24fd055913125a964cb5aa61330376274c938035))
+* more change about types [#230](https://github.com/taoqf/node-fast-html-parser/issues/230) ([2852d20](https://github.com/taoqf/node-fast-html-parser/commit/2852d20f865dc18a8dc6727d5b5e586282e7d50d))
+* remove test code ([f0b176e](https://github.com/taoqf/node-fast-html-parser/commit/f0b176eb1ba5b5bc162744a37adcd18d3d64a515))
+
 ### [6.1.5](https://github.com/taoqf/node-fast-html-parser/compare/v6.1.4...v6.1.5) (2023-02-21)
 
 ### [6.1.4](https://github.com/taoqf/node-fast-html-parser/compare/v6.1.3...v6.1.4) (2022-11-15)
