@@ -172,7 +172,7 @@ export default class HTMLElement extends Node {
 		tagName: string,
 		keyAttrs: KeyAttributes,
 		public rawAttrs = '',
-		parentNode: HTMLElement | null,
+		parentNode = null as HTMLElement | null,
 		range: [number, number],
 		private voidTag = new VoidTag(),
 		_parseOptions = {} as Partial<Options>

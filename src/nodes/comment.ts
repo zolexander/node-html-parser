@@ -6,7 +6,7 @@ export default class CommentNode extends Node {
 	public clone(): CommentNode {
 		return new CommentNode(this.rawText, null);
 	}
-	public constructor(public rawText: string, parentNode: HTMLElement, range?: [number, number]) {
+	public constructor(public rawText: string, parentNode = null as HTMLElement | null, range?: [number, number]) {
 		super(parentNode, range);
 	}
 

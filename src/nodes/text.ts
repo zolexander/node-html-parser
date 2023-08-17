@@ -11,7 +11,7 @@ export default class TextNode extends Node {
 	public clone(): TextNode {
 		return new TextNode(this._rawText, null);
 	}
-	public constructor(rawText: string, parentNode: HTMLElement, range?: [number, number]) {
+	public constructor(rawText: string, parentNode = null as HTMLElement | null, range?: [number, number]) {
 		super(parentNode, range);
 		this._rawText = rawText;
 	}
