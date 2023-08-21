@@ -1,7 +1,7 @@
 const { parse } = require('@test/test-target');
 
 // https://github.com/taoqf/node-html-parser/issues/203
-describe.only('issue 203', function () {
+describe('issue 203', function () {
 	it('code element should not be null', function () {
 		const root = parse(`<html><body><pre><code class="language-typescript">type Foo = { foo: 'bar' }</code></pre></body></html>`, {
 			blockTextElements: {
