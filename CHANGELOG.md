@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.1.8](https://github.com/taoqf/node-fast-html-parser/compare/v6.1.7...v6.1.8) (2023-09-08)
+
+
+### Bug Fixes
+
+* [#248](https://github.com/taoqf/node-fast-html-parser/issues/248) void tag ([01ff9f4](https://github.com/taoqf/node-fast-html-parser/commit/01ff9f41e416d0ef0c47bc40c282d6aeb405e100))
+
 ### [6.1.7](https://github.com/taoqf/node-fast-html-parser/compare/v6.1.6...v6.1.7) (2023-09-08)
 
 
