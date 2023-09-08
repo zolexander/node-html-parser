@@ -21,23 +21,15 @@ describe('pre tag', function () {
 		root.toString().should.eql(html);
 	});
 	it('should ignore pre tag', function () {
-		const html = `
-    <div class="language-python highlighter-rouge">
-      <div class="highlight"> <pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span><br><span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><br></code></pre>
-      </div>
-    </div>
-    `;
+		const html = `<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span><br><span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><br></code></pre></div></div>`;
 		const root = parse(html, {
 			blockTextElements: {
-				pre: false
+				pre: true
 			}
 		});
-		root.toString().should.eql(`
-    <div class="language-python highlighter-rouge">
-      <div class="highlight"> <pre class="highlight"></pre>
-      </div>
-    </div>
-    `);
+		const div = root.firstChild.firstChild;
+		const pre = div.firstChild;
+		pre.text.should.eql(`<code><span class="k">print</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span><br><span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><br></code>`);
 	});
 	it('do not treat pre as text block element', function () {
 		const html = `<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'hello'</span><span class="p">)</span><br><span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><br></code></pre>
@@ -54,8 +46,8 @@ describe('pre tag', function () {
 	});
 	// see: https://github.com/taoqf/node-html-parser/issues/156
 	it('does not treat pre* tag as pre (partial match)', () => {
-    const docRoot = parse("<premises><color>Red</color></premises>");
-    Object.getPrototypeOf(docRoot.firstChild.firstChild).should.eql(HTMLElement.prototype);
-    docRoot.firstChild.firstChild.tagName.should.eql('COLOR');
-  })
+		const docRoot = parse("<premises><color>Red</color></premises>");
+		Object.getPrototypeOf(docRoot.firstChild.firstChild).should.eql(HTMLElement.prototype);
+		docRoot.firstChild.firstChild.tagName.should.eql('COLOR');
+	})
 });

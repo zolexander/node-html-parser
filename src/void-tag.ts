@@ -6,11 +6,11 @@ export default class VoidTag {
 	) {
 		if (Array.isArray(tags)) {
 			this.voidTags = tags.reduce((set, tag) => {
-				return set.add(tag.toLowerCase());
+				return set.add(tag.toLowerCase()).add(tag.toUpperCase()).add(tag);
 			}, new Set<string>());
 		} else {
 			this.voidTags = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'].reduce((set, tag) => {
-				return set.add(tag);
+				return set.add(tag.toLowerCase()).add(tag.toUpperCase()).add(tag);
 			}, new Set<string>());
 		}
 	}

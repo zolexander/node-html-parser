@@ -912,36 +912,6 @@ export default class HTMLElement extends Node {
 // https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name
 const kMarkupPattern = /<!--[\s\S]*?-->|<(\/?)([a-zA-Z][-.:0-9_a-zA-Z]*)((?:\s+[^>]*?(?:(?:'[^']*')|(?:"[^"]*"))?)*)\s*(\/?)>/g;
 const kAttributePattern = /(?:^|\s)(id|class)\s*=\s*((?:'[^']*')|(?:"[^"]*")|\S+)/gi;
-const kSelfClosingElements = {
-	area: true,
-	AREA: true,
-	base: true,
-	BASE: true,
-	br: true,
-	BR: true,
-	col: true,
-	COL: true,
-	hr: true,
-	HR: true,
-	img: true,
-	IMG: true,
-	input: true,
-	INPUT: true,
-	link: true,
-	LINK: true,
-	meta: true,
-	META: true,
-	source: true,
-	SOURCE: true,
-	embed: true,
-	EMBED: true,
-	param: true,
-	PARAM: true,
-	track: true,
-	TRACK: true,
-	wbr: true,
-	WBR: true,
-} as Record<string, boolean>;
 const kElementsClosedByOpening = {
 	li: { li: true, LI: true },
 	LI: { li: true, LI: true },
@@ -1150,7 +1120,7 @@ export function base_parse(data: string, options = {} as Partial<Options>) {
 		}
 
 		// Handle closing tags or self-closed elements (ie </tag> or <br>)
-		if (leadingSlash || closingSlash || kSelfClosingElements[tagName]) {
+		if (leadingSlash || closingSlash || voidTag.isVoidElement(tagName)) {
 			while (true) {
 				if (noNestedTagIndex != null && (tagName === 'a' || tagName === 'A')) noNestedTagIndex = undefined;
 				if (currentParent.rawTagName === tagName) {
