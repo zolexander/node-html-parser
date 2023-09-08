@@ -248,6 +248,10 @@ export default class HTMLElement extends Node {
 	 * @return {string} text content
 	 */
 	public get rawText() {
+		// https://github.com/taoqf/node-html-parser/issues/249
+		if (/br/i.test(this.rawTagName)) {
+			return '\n';
+		}
 		return this.childNodes.reduce((pre, cur) => {
 			return (pre += cur.rawText);
 		}, '');
