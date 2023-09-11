@@ -1,6 +1,6 @@
 const { parse } = require('@test/test-target');
 
-describe.only('issue 244', function () {
+describe('issue 249', function () {
 	it('br in innertext should turn into \\n', function () {
 		const html = `<div>Hello<br>World</div>`;
 		const root = parse(html);
