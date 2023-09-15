@@ -60,6 +60,7 @@
 		"@typescript-eslint/eslint-plugin-tslint": "latest",
 		"@typescript-eslint/parser": "latest",
 		"blanket": "latest",
+		"boolbase": "^1.0.0",
 		"cheerio": "^1.0.0-rc.12",
 		"cross-env": "^7.0.3",
 		"eslint": "^8.23.1",

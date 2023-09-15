@@ -16,14 +16,32 @@ describe('issue 242', function () {
 </pre>`;
 		const root = parse(html, {
 			blockTextElements: {
-				script: true,
-				noscript: true,
-				style: true,
-				pre: false
 			}
 		});
 		const list = root.getElementsByTagName("code");
 		const [code] = list;
 		code.text.should.eql('test');
+	});
+	it(`do not block text element`, function () {
+		const htmlString = "sample <b><strong>text</strong> inside tags</b> <script>text inside script</script>"
+
+		const root = parse(htmlString, {
+			blockTextElements: {
+				script: false
+			}
+		});
+
+		root.text.should.eql('sample text inside tags ');
+	});
+	it(`block text element`, function () {
+		const htmlString = "sample <b><strong>text</strong> inside tags</b> <script>text inside script</script>"
+
+		const root = parse(htmlString, {
+			blockTextElements: {
+				script: true
+			}
+		});
+
+		root.text.should.eql('sample text inside tags text inside script');
 	});
 });
