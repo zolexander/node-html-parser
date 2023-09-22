@@ -407,7 +407,7 @@ export default class HTMLElement extends Node {
 	}
 	/**
 	 * Get DOM structure
-	 * @return {string} strucutre
+	 * @return {string} structure
 	 */
 	public get structure() {
 		const res = [] as string[];
