@@ -22,7 +22,7 @@
 		"reset": "yarn run clean:global && yarn install && yarn build",
 		"--------------- ": "",
 		"test:target": "mocha --recursive \"./test/tests\"",
-		"test:ci": "cross-env TEST_TARGET=dist yarn run test:target",
+		"test:ci": "cd test && yarn install && cd .. && cross-env TEST_TARGET=dist yarn run test:target",
 		"posttest": "yarn run benchmark",
 		"prepare": "npm run build",
 		"release": "standard-version && git push --follow-tags origin main"
