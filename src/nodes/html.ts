@@ -528,8 +528,9 @@ export default class HTMLElement extends Node {
 	/**
 	 * find element by it's id
 	 * @param {string} id the id of the element to select
+	 * @returns {HTMLElement | null} the element with the given id or null if not found
 	 */
-	public getElementById(id: string) {
+	public getElementById(id: string): HTMLElement | null {
 		const stack: Array<number> = [];
 
 		let currentNodeReference = this as Node;
@@ -572,8 +573,9 @@ export default class HTMLElement extends Node {
 	/**
 	 * traverses the Element and its parents (heading toward the document root) until it finds a node that matches the provided selector string. Will return itself or the matching ancestor. If no such element exists, it returns null.
 	 * @param selector a DOMString containing a selector list
+	 * @returns {HTMLElement | null} the element with the given id or null if not found
 	 */
-	public closest(selector: string) {
+	public closest(selector: string): HTMLElement | null {
 		type Predicate = (node: Node) => node is HTMLElement;
 
 		const mapChild = new Map<Node, Node>();
@@ -642,17 +644,17 @@ export default class HTMLElement extends Node {
 
 	/**
 	 * Get first child node
-	 * @return {Node} first child node
+	 * @return {Node | undefined} first child node; or undefined if none
 	 */
-	public get firstChild() {
+	public get firstChild(): Node | undefined {
 		return this.childNodes[0];
 	}
 
 	/**
 	 * Get last child node
-	 * @return {Node} last child node
+	 * @return {Node | undefined} last child node; or undefined if none
 	 */
-	public get lastChild() {
+	public get lastChild(): Node | undefined {
 		return arr_back(this.childNodes);
 	}
 
@@ -735,7 +737,7 @@ export default class HTMLElement extends Node {
 
 	/**
 	 * Get an attribute
-	 * @return {string} value of the attribute
+	 * @return {string | undefined} value of the attribute; or undefined if not exist
 	 */
 	public getAttribute(key: string): string | undefined {
 		return this.attrs[key.toLowerCase()];
@@ -837,7 +839,7 @@ export default class HTMLElement extends Node {
 		// }
 	}
 
-	public get nextSibling() {
+	public get nextSibling(): Node | null {
 		if (this.parentNode) {
 			const children = this.parentNode.childNodes;
 			let i = 0;
@@ -849,7 +851,7 @@ export default class HTMLElement extends Node {
 		}
 	}
 
-	public get nextElementSibling(): HTMLElement {
+	public get nextElementSibling(): HTMLElement | null {
 		if (this.parentNode) {
 			const children = this.parentNode.childNodes;
 			let i = 0;
@@ -868,7 +870,7 @@ export default class HTMLElement extends Node {
 		}
 	}
 
-	public get previousSibling() {
+	public get previousSibling(): Node | null {
 		if (this.parentNode) {
 			const children = this.parentNode.childNodes;
 			let i = children.length;
@@ -880,7 +882,7 @@ export default class HTMLElement extends Node {
 		}
 	}
 
-	public get previousElementSibling(): HTMLElement {
+	public get previousElementSibling(): HTMLElement | null {
 		if (this.parentNode) {
 			const children = this.parentNode.childNodes;
 			let i = children.length;
