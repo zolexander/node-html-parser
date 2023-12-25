@@ -718,9 +718,7 @@ export default class HTMLElement extends Node {
 		this.rawAttrs = Object.keys(attrs)
 			.map((name) => {
 				const val = this.quoteAttribute(attrs[name]);
-				if (val === undefined || val === 'null') {
-					return name;
-				}
+				if (val === 'null' || val === '""') return name;
 				return `${name}=${val}`;
 			})
 			.join(' ');
