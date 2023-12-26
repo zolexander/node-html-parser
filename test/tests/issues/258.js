@@ -10,7 +10,5 @@ describe('issue 258', function () {
 
 		inputEl.removeAttribute('a');
 		inputEl.toString().should.eql('<input checked>');
-		console.log(inputEl.toString()); // => <input checked=""> INCORRECT
-		// div.innerText.should.eql(`Hello World`);
 	});
 });
