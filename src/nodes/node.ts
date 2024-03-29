@@ -6,6 +6,7 @@ import HTMLElement from './html';
  * Node Class as base class for TextNode and HTMLElement.
  */
 export default abstract class Node {
+	abstract rawTagName: string;
 	abstract nodeType: NodeType;
 	public childNodes = [] as Node[];
 	public range: readonly [number, number];

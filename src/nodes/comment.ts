@@ -4,9 +4,9 @@ import NodeType from './type';
 
 export default class CommentNode extends Node {
 	public clone(): CommentNode {
-		return new CommentNode(this.rawText, null);
+		return new CommentNode(this.rawText, null, undefined, this.rawTagName);
 	}
-	public constructor(public rawText: string, parentNode = null as HTMLElement | null, range?: [number, number]) {
+	public constructor(public rawText: string, parentNode = null as HTMLElement | null, range?: [number, number], public rawTagName = '!--') {
 		super(parentNode, range);
 	}
 

@@ -21,6 +21,7 @@ export default class TextNode extends Node {
 	 * @type {Number}
 	 */
 	public nodeType = NodeType.TEXT_NODE;
+	public rawTagName = '';
 
 	private _rawText: string;
 	private _trimmedRawText?: string;
