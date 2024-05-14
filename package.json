@@ -12,6 +12,7 @@
 		"compile:amd": "tsc -t es5 -m amd -d false --outFile ./dist/main.js",
 		"lint": "eslint ./src/*.ts ./src/**/*.ts",
 		"---------------": "",
+		"pretest": "cd ./test/ && yarn install && cd ..",
 		"test": "yarn run test:target",
 		"test:src": "cross-env TEST_TARGET=src yarn run test",
 		"test:dist": "cross-env TEST_TARGET=dist yarn run test",
