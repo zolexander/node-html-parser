@@ -453,6 +453,14 @@ export default class HTMLElement extends Node {
 			this.childNodes[o++] = node;
 		});
 		this.childNodes.length = o;
+
+		// remove whitespace between attributes
+		const attrs = Object.keys( this.rawAttributes).map((key) => {
+			const val = this.rawAttributes[key];
+			return `${key}=${ JSON.stringify(val)}`;
+		}).join(' ');
+		this.rawAttrs = attrs;
+		delete this._rawAttrs;
 		return this;
 	}
 

@@ -29,7 +29,8 @@
 		"inlineSources": false,
 		"isolatedModules": false,
 		"lib": [
-			"esnext"
+			"esnext",
+			"dom"
 		],
 		"listFiles": false,
 		"listEmittedFiles": false,
