@@ -413,7 +413,9 @@ export default class HTMLElement extends Node {
 		tagName:string) {
 			return new HTMLElement(tagName,{xmlns: namespaceURI},'');
 	}
-
+	public createTextNode(str:string) {
+		return str;
+	}
 	public get outerHTML() {
 		return this.toString();
 	}
