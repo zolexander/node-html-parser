@@ -67,6 +67,22 @@ describe('HTML Parser', function () {
 			root.firstChild.toString().should.eql(div.toString());
 
 		})
+		it('should parse "<DIV><a><img/></A><p></P></div>" and create same element with root.createElementNS function and setAttributeNS it', function () {
+			const root = parseHTML('<DIV xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.mozilla.org/ns/specialspace" foo="bar"><a><img/></A><p></P></div>', {
+				lowerCaseTagName: true
+			});
+			const div = root.createElementNS('http://www.w3.org/1999/xhtml','div');
+			const a = root.createElement("a");
+			const img = root.createElement('img');
+			const p = root.createElement("p");
+			a.appendChild(img);
+			div.appendChild(a);
+			div.appendChild(p);
+			div.setAttributeNS("http://www.mozilla.org/ns/specialspace",'foo','bar');
+			console.log(div.toString());
+			root.firstChild.toString().should.eql(div.toString());
+
+		})
 
 		it.skip('TODO implement: should use HTMLElement._defaultParseOptions', function () {
 

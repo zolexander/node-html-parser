@@ -1,0 +1,432 @@
+
+> node-html-parser@6.1.14 pretest
+> cd ./test/ && yarn install && cd ..
+
+yarn install v1.22.22
+[1/4] Resolving packages...
+success Already up-to-date.
+Done in 0.16s.
+
+> node-html-parser@6.1.14 test
+> yarn run test:target
+
+yarn run v1.22.22
+$ mocha --recursive "./test/tests"
+
+
+  query should be case insensitive
+    ✔ class should be case insensitive
+    ✔ tagname name should be case insensitive
+    ✔ attribute name should be case insensitive
+
+  clone elememt
+    ✔ clone html element
+    ✔ clone text element
+    ✔ clone comment element
+
+  empty attribute
+    ✔ without attribute value
+    ✔ with empty value
+    ✔ with empty class
+    ✔ attribute name is not exist
+
+  HTML Parser
+    parse()
+      ✔ should parse "<p id=\"id\"><a class='cls'>Hello</a><ul><li><li></ul><span></span></p>" and return root element
+      ✔ should parse "<DIV><a><img/></A><p></P></div>" and return root element
+<div><a><img></a><p></p></div>
+      ✔ should parse "<DIV><a><img/></A><p></P></div>" and create same element with root.createElement function
+<div xmlns="http://www.w3.org/1999/xhtml"><a><img></a><p></p></div>
+      ✔ should parse "<DIV><a><img/></A><p></P></div>" and create same element with root.createElementNS function
+<div xmlns="http://www.w3.org/1999/xhtml"><a><img></a><p></p></div>
+      1) should parse "<DIV><a><img/></A><p></P></div>" and create same element with root.createElementNS function and setAttributeNS it
+      - TODO implement: should use HTMLElement._defaultParseOptions
+      ✔ should deal uppercase
+      ✔ should parse "<div><a><img/></a><p></p></div>" and return root element
+      ✔ should parse "<div><a><!-- my comment --></a></div>" and return root element without comments
+      ✔ should parse "<div><a><!-- my comment --></a></div>" and return root element with comments
+      ✔ should not parse HTML inside comments
+      ✔ should parse HTML comments in insertAdjacentHTML
+      ✔ should parse HTML comments in set innerHTML
+      ✔ should parse HTML comments in set_content
+      ✔ should parse HTML comments in set_content - comment in div
+      ✔ should parse HTML comments NOT in set_content with option comment=false
+      ✔ should parse HTML comments NOT in set_content with option comment=false - comment in div
+      ✔ should parse HTML comments in replaceWith
+      ✔ should parse HTML comments in clone
+      ✔ should parse picture element
+      ✔ should not extract text in script and style by default
+      ✔ should extract text in script and style when ask so
+      ✔ should be able to parse "html/incomplete-script" file
+      ✔ should be able to parse namespaces
+      ✔ should parse "<div><a><img/></a><p></p></div>.." very fast
+      ✔ should parse "<DIV><a><img/></A><p></P></div>.." fast
+      ✔ should parse "<div><h3>content<h3> <span> other <span></div>" (fix h3, span closing tag) very fast
+      ✔ should parse table currect (174ms)
+    TextNode
+      ✔ #isWhitespace
+      ✔ parse text node (40ms)
+    HTMLElement
+      #removeWhitespace()
+        ✔ should remove whitespaces while preserving nodes with content
+        ✔ should preserve legitimate leading/trailing whitespace in TextNode
+      #rawAttributes
+        ✔ should return escaped attributes of the element
+      #attributes
+        ✔ should return attributes of the element
+      #getAttribute
+        ✔ should return value of the attribute
+        ✔ should return value of the first attribute
+        ✔ should return null when there is no such attribute
+        ✔ should return empty string as broser behavior
+        ✔ should return null as browser behavior
+      #setAttribute
+        ✔ should edit the attributes of the element
+        ✔ should add an attribute to the element
+        ✔ should convert value to string
+        ✔ should throw type Error
+        ✔ should keep quotes arount value
+      #setAttributes
+        ✔ should return attributes of the element
+      #removeAttribute
+        ✔ should remove attribute required
+      #hasAttribute
+        ✔ should return true or false when has or has not some attribute
+      #structuredText
+        ✔ should return correct structured text
+        ✔ should not return comments in structured text
+        ✔ should return correct structured text (block level elements)
+      #set_content
+        ✔ set content string
+        ✔ set content nodes
+        ✔ set content node
+        ✔ set content text
+        ✔ set content pre
+      encode/decode
+        ✔ should decode attributes value
+        ✔ should not decode text from parseHTML()
+        ✔ should decode for node text property
+      #insertAdjacentHTML() should parse and insert childrens
+        ✔ shoud insert children after current node
+        ✔ shoud insert children before current node
+        ✔ shoud append children in current node
+        ✔ shoud insert children at position 0
+        ✔ shoud insert text child at position 0
+      #removeChild
+        ✔ shoud remove child node
+        ✔ shoud not remove child node which does not exist
+      #getElementsByTagName
+        ✔ find the divs in proper order
+        ✔ only return relevant items
+        ✔ return all elements if tagName is *
+        ✔ return an empty array if nothing is found
+        ✔ allow sparse arrays
+    stringify
+      ✔ #toString()
+      ✔ #toString() should not return comments by default
+      ✔ #toString() should return comments when specified
+      ✔ #toString() should contains id and classnames
+      ✔ #toString() should contains classnames withspaces
+    Comment Element
+      ✔ comment nodeType should be 8
+    Custom Element
+      ✔ parse "<my-widget></my-widget>" tagName should be "my-widget"
+    Custom Element multiple dash
+      ✔ parse "<my-new-widget></my-new-widget>" tagName should be "my-new-widget"
+
+  Module Import
+    ✔ ESM project can import and use named exports (1005ms)
+    ✔ CommonJS project can import and use named exports (814ms)
+
+  #querySelectorAll
+    ✔ nothing mached
+
+  Memory leak
+    - nothing mached
+
+  self-close tag
+    ✔ should not teat textarea as self-colse tag
+    ✔ input is self-closing
+
+  pull/112
+    ✔ this.id is set to an empty string
+    ✔ this.id is set to the value of keyAttrs
+    ✔ #removeAttribute()
+    ✔ #setAttribute()
+
+  issue 115
+    ✔ parse html
+
+  issue 119 closest
+    ✔ query with .a.b
+    ✔ query with ul[item]
+    ✔ queries
+    ✔ 84
+
+  Prototype pollution
+    ✔ prevents prototype pollution
+
+  pr 135
+    ✔ shoud not decode text
+    ✔ should not decode text from parseHTML()
+    ✔ should decode for node text property
+
+  issue 136
+    ✔ parse the parent html tag when its attributes has an html tag on it
+
+  issue 145
+    ✔ shoud parse attributes right
+
+  issue 152
+    - shoud parse attributes right
+    - shoud parse attributes right with option parseNoneClosedTags
+
+  method getElementById
+    ✔ get element by id with .
+    ✔ get element by id with space
+
+  appendChild
+    ✔ node should not be it' previous parent
+
+  change tag name
+    ✔ tagname should changed
+    ✔ tagname should changed use uppercase name
+
+  previous sibling
+    ✔ get previous sibling
+    ✔ get previous element sibling
+
+  replace children
+    ✔ use innerHTML to replace children
+    ✔ use set_content() to replace children
+    ✔ use replaceWith to replace children
+    ✔ use insertAdjacentHTML to insert elements
+
+  angular template
+    ✔ attribute name contains []
+
+  issue 203
+    ✔ code element should not be null
+    ✔ code element should not be null
+
+  void tags
+    ✔ default
+    ✔ closingSlash
+    ✔ closingSlash with space
+    ✔ closingSlash with attribute ends with no blank space
+    ✔ closingSlash with attribute ends with blank space
+
+  issue 214
+    ✔ default
+
+  issue 218
+    ✔ attribute value contains quote should be parsed correct
+    ✔ should escape newlines to html entities
+
+  issue 224
+    ✔ query
+
+  issue 226
+    ✔ get node line
+
+  issue 239
+    ✔ query
+
+  issue 240
+    ✔ attribute should not changed
+
+  issue 242
+    ✔ a.rawAttrs returns 'href="/" rel="home"' but a.getAttribute("href') returns undefined
+    ✔ get code
+    ✔ do not block text element
+    ✔ block text element
+
+  issue 248
+    ✔ void tag
+    ✔ selfclosed tag
+
+  issue 249
+    ✔ br in innertext should turn into \n
+
+  issue 254
+    ✔ abbr in innertext should not turn into \n
+
+  issue 258
+    ✔ removeAttribute makes boolean attributes render incorrectly.
+
+  issue 260
+    ✔ 100% cpu while parsing document (257ms)
+
+  issue 267
+    ✔ Incorrect Handling of Empty Class Attributes in SVG Parsing
+
+  issue 268
+    - Wrong output on malformed HTML
+    - xxx
+
+  issue 269 270
+    ✔ node.rawTagName
+    ✔ querySelector for comment nodes
+
+  issue 274
+    ✔ removeWhitespace + outerHTML dont remove meaningless white-spaces inside start and end tags
+
+  issues/28
+    ✔ query with dl > dt
+    ✔ query with dl dt, dl dd
+    ✔ query with .a.b
+    ✔ query with ul[item]
+
+  issues/59
+    ✔ query with tr td:nth-child(2)
+
+  issues/74
+    ✔ query with td:nth-child
+
+  #exchangeChild()
+    ✔ replace child current element
+    ✔ get next sibling
+    ✔ get next element sibling
+
+  issue 42
+    ✔ svg attribute
+
+  issue 48
+    ✔ get decoded text
+    ✔ get decoded text2
+
+  issue 51
+123
+    ✔ vue: > in attibute value
+
+  issues/69
+    ✔ should parse element embed as selfclosed tag
+
+  issues/70
+    ✔ should get attribute with :
+    ✔ should get attribute with _
+
+  #querySelector()
+    ✔ should return correct elements in DOM tree
+
+  #querySelectorAll()
+    ✔ should return correct elements in DOM tree
+    ✔ should return just one element
+    - should return elements in order
+    - should query multiple nodes
+
+  #remove()
+    ✔ remove current element
+    ✔ remove element not in html
+    ✔ remove current element without method remove
+
+  #textContent
+    ✔ get text content
+    ✔ set text content
+    ✔ set text content using textnode
+    ✔ replace childnodes with text content 
+
+  getAttribute should be case insensitive
+    ✔ namal
+    ✔ get attribute in origin name
+    ✔ get attribute in lowercase
+    ✔ set attribute in lowercase
+    ✔ add attributes
+
+  Nested A Tags
+    ✔ Tags preserved by default
+    ✔ Tags fixed with fixNestedATags option
+
+  Elements ranges
+    ✔ new nodes are created with [ -1, -1 ] range by default
+    parsed elements created with proper ranges
+      ✔ <text: '\nLeading...'>
+      ✔ DIV
+      ✔ <text: '\n  '>
+      ✔ P
+      ✔ <text: 'Text Con...'>
+      ✔ <text: '\n  Goes ...'>
+      ✔ <text: '\n'>
+      ✔ INPUT
+      ✔ <text: '\n'>
+      ✔ <comment: ' comment...'>
+      ✔ <text: '\n'>
+      ✔ <style: '\n  .abc ...'>
+      ✔ <text: '\n  .abc ...'>
+      ✔ <text: '\n'>
+      ✔ PRE
+      ✔ <text: '\n  block...'>
+      ✔ <text: '\n'>
+      ✔ SPAN
+      ✔ <text: 'The spac...'>
+      ✔ <text: '      '>
+      ✔ SPAN
+      ✔ <text: 'is vast'>
+      ✔ <text: '\nClosing...'>
+
+  HTML Parser
+    ✔ should parse text element
+    ✔ should parse pure text element
+    ✔ should parse text element in style
+    ✔ issue#55
+    ✔ parses all whitespace
+
+  pre tag
+    ✔ should parse pre tag correctly
+    ✔ should ignore pre tag
+    ✔ do not treat pre as text block element
+    ✔ does not treat pre* tag as pre (partial match)
+
+  quote attributes
+    ✔ escapes double quotes when using setAttribute
+    ✔ escapes double quotes when using setAttributes
+    ✔ parses attributes containing &quot;
+
+  should parse tag correct
+    ✔ should get attribute with :
+    ✔ should set innerHTML correctly
+    ✔ should replace current node with a new one
+    ✔ should replace current node with multiple nodes
+<html>
+  <div class="some-custom-element">yay</div>
+</html>
+
+    ✔ transform custom elements
+    ✔ classNames and classList
+
+  parseWithValidation
+    ✔ should return Object with valid: true.  does not count <p><p></p> as error. instead fixes it to <p></p><p></p>
+    ✔ should return Object with valid: true.  does not count <p><p/></p> as error. instead fixes it to <p><p></p></p>
+    ✔ should return Object with valid: false.  does not count <p><h3></p> as error
+    ✔ hillcrestpartyrentals.html  should return Object with valid: false.  not closing <p> tag on line 476
+    ✔ google.html  should return Object with valid: true
+    ✔ gmail.html  should return Object with valid: true
+    ✔ ffmpeg.html  should return Object with valid: false (extra opening <div>
+    ✔ should fix "<div><h3><h3><div>" to "<div><h3></h3></div>"
+    ✔ should fix "<div><h3><h3><span><span><div>" to "<div><h3></h3><span></span></div>"
+    ✔ gmail.html  should return Object with valid: true
+    ✔ gmail.html  should return Object with valid: true
+
+
+  232 passing (3s)
+  8 pending
+  1 failing
+
+  1) HTML Parser
+       parse()
+         should parse "<DIV><a><img/></A><p></P></div>" and create same element with root.createElementNS function and setAttributeNS it:
+
+      AssertionError: expected '<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.mozilla.org/ns/specialspace" foo="bar"><a><img></a><p></p></div>' to equal '<div xmlns="http://www.w3.org/1999/xhtml"><a><img></a><p></p></div>'
+      + expected - actual
+
+      -<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.mozilla.org/ns/specialspace" foo="bar"><a><img></a><p></p></div>
+      +<div xmlns="http://www.w3.org/1999/xhtml"><a><img></a><p></p></div>
+      
+      at Assertion.fail (node_modules/should/cjs/should.js:275:17)
+      at Assertion.value (node_modules/should/cjs/should.js:356:19)
+      at Context.<anonymous> (test/tests/html.js:83:38)
+      at processImmediate (node:internal/timers:476:21)
+
+
+
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

@@ -401,9 +401,11 @@ export default class HTMLElement extends Node {
 		];
 		return this;
 	}
+
 	public createElement(tagName: string) {
 		return new HTMLElement(tagName,{},'');	
 	}
+
 	public createElementNS(namespaceURI:
 		"http://www.w3.org/1999/xhtml"|
 		"http://www.w3.org/2000/svg"|
@@ -411,6 +413,7 @@ export default class HTMLElement extends Node {
 		tagName:string) {
 			return new HTMLElement(tagName,{xmlns: namespaceURI},'');
 	}
+
 	public get outerHTML() {
 		return this.toString();
 	}
@@ -818,7 +821,39 @@ export default class HTMLElement extends Node {
 		}
 		return this;
 	}
-
+	public setAttributeNS(namespaceURI: string,key: string, value: string) {
+		if (arguments.length < 3) {
+			throw new Error("Failed to execute 'setAttribute' on 'Element'");
+		}
+		const k2 = key.toLowerCase();
+		const attrs = this.rawAttributes;
+		for (const k in attrs) {
+			if (k.toLowerCase() === k2) {
+				key = k;
+				break;
+			}
+		}
+		attrs["xmlns:xlink"] = namespaceURI;
+		attrs[key] = String(value);
+		// update this.attrs
+		if (this._attrs) {
+			this._attrs['xmlns:xlunk'] = decode(attrs["xmlns:xlink"]);
+			this._attrs[k2] = decode(attrs[key]);
+		}
+		// Update rawString
+		this.rawAttrs = Object.keys(attrs)
+			.map((name) => {
+				const val = this.quoteAttribute(attrs[name]);
+				if (val === 'null' || val === '""') return name;
+				return `${name}=${val}`;
+			})
+			.join(' ');
+		// Update this.id
+		if (key === 'id') {
+			this.id = value;
+		}
+		return this;
+	}
 	/**
 	 * Replace all the attributes of the HTMLElement by the provided attributes
 	 * @param {Attributes} attributes the new attribute set
