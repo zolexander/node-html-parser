@@ -48,7 +48,6 @@ describe('HTML Parser', function () {
 			a.appendChild(img);
 			div.appendChild(a);
 			div.appendChild(p);
-			console.log(div.toString());
 			root.firstChild.toString().should.eql(div.toString());
 
 		})
@@ -63,7 +62,6 @@ describe('HTML Parser', function () {
 			a.appendChild(img);
 			div.appendChild(a);
 			div.appendChild(p);
-			console.log(div.toString());
 			root.firstChild.toString().should.eql(div.toString());
 
 		})
@@ -79,7 +77,6 @@ describe('HTML Parser', function () {
 			div.appendChild(a);
 			div.appendChild(p);
 			div.setAttributeNS("http://www.mozilla.org/ns/specialspace",'foo','bar');
-			console.log(div.toString());
 			root.firstChild.toString().should.eql(div.toString());
 
 		})
