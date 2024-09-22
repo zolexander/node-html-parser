@@ -1,6 +1,6 @@
 {
 	"name": "node-html-parser",
-	"version": "7.0.0",
+	"version": "7.0.1",
 	"description": "A very fast HTML parser, generating a simplified DOM, with basic element query support.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -51,7 +51,8 @@
 	},
 	"dependencies": {
 		"css-select": "^5.1.0",
-		"he": "1.2.0"
+		"he": "1.2.0",
+		"yarn": "^1.22.22"
 	},
 	"devDependencies": {
 		"@types/entities": "latest",
