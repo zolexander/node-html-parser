@@ -40,6 +40,8 @@ function decode(val: string) {
 export interface KeyAttributes {
 	id?: string;
 	class?: string;
+	xmlns?: string;
+	xmlnsXlink?: string;
 }
 
 export interface Attributes {
@@ -202,8 +204,28 @@ export default class HTMLElement extends Node {
 				}
 			}
 		}
+	
+		if(keyAttrs.xmlns) {
+			if(!rawAttrs) {
+				const nameSpace = `xmlns="${keyAttrs.xmlns}"`;
+				if (this.rawAttrs) {
+					this.rawAttrs += nameSpace;
+				} else {
+					this.rawAttrs = nameSpace;
+				}
+			}
+		}
+		if(keyAttrs.xmlnsXlink) {
+			if(!rawAttrs) {
+				const nameSpace = `xmlns:xlink="${keyAttrs.xmlnsXlink}"`;
+				if (this.rawAttrs) {
+					this.rawAttrs += nameSpace;
+				} else {
+					this.rawAttrs = nameSpace;
+				}
+			}
+		}
 	}
-
 	/**
 	 * Remove Child element from childNodes array
 	 * @param {HTMLElement} node     node to remove
@@ -379,7 +401,16 @@ export default class HTMLElement extends Node {
 		];
 		return this;
 	}
-
+	public createElement(tagName: string) {
+		return new HTMLElement(tagName,{},'');	
+	}
+	public createElementNS(namespaceURI:
+		"http://www.w3.org/1999/xhtml"|
+		"http://www.w3.org/2000/svg"|
+		"http://www.w3.org/1998/Math/MathML",
+		tagName:string) {
+			return new HTMLElement(tagName,{xmlns: namespaceURI},'');
+	}
 	public get outerHTML() {
 		return this.toString();
 	}
@@ -1192,15 +1223,8 @@ export function parse(data: string, options = {} as Partial<Options>) {
 					});
 				}
 			}
-		} else {
-			// If it's final element just skip.
-		}
+		} 
 	}
-	// response.childNodes.forEach((node) => {
-	// 	if (node instanceof HTMLElement) {
-	// 		node.parentNode = null;
-	// 	}
-	// });
 	return root;
 }
 

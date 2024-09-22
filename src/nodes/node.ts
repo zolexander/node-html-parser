@@ -48,4 +48,5 @@ export default abstract class Node {
 	public set textContent(val: string) {
 		this.rawText = encode(val);
 	}
+	
 }

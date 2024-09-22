@@ -36,6 +36,37 @@ describe('HTML Parser', function () {
 
 			root.firstChild.should.eql(div);
 		});
+		
+		it('should parse "<DIV><a><img/></A><p></P></div>" and create same element with root.createElement function', function () {
+			const root = parseHTML('<DIV><a><img/></A><p></P></div>', {
+				lowerCaseTagName: true
+			});
+			const div = root.createElement('div');
+			const a = root.createElement("a");
+			const img = root.createElement('img');
+			const p = root.createElement("p");
+			a.appendChild(img);
+			div.appendChild(a);
+			div.appendChild(p);
+			console.log(div.toString());
+			root.firstChild.toString().should.eql(div.toString());
+
+		})
+		it('should parse "<DIV><a><img/></A><p></P></div>" and create same element with root.createElementNS function', function () {
+			const root = parseHTML('<DIV xmlns="http://www.w3.org/1999/xhtml"><a><img/></A><p></P></div>', {
+				lowerCaseTagName: true
+			});
+			const div = root.createElementNS('http://www.w3.org/1999/xhtml','div');
+			const a = root.createElement("a");
+			const img = root.createElement('img');
+			const p = root.createElement("p");
+			a.appendChild(img);
+			div.appendChild(a);
+			div.appendChild(p);
+			console.log(div.toString());
+			root.firstChild.toString().should.eql(div.toString());
+
+		})
 
 		it.skip('TODO implement: should use HTMLElement._defaultParseOptions', function () {
 
