@@ -413,9 +413,11 @@ export default class HTMLElement extends Node {
 		tagName:string) {
 			return new HTMLElement(tagName,{xmlns: namespaceURI},'');
 	}
+
 	public createTextNode(str:string) {
-		return str;
+		return new TextNode(str);
 	}
+	
 	public get outerHTML() {
 		return this.toString();
 	}
@@ -839,7 +841,7 @@ export default class HTMLElement extends Node {
 		attrs[key] = String(value);
 		// update this.attrs
 		if (this._attrs) {
-			this._attrs['xmlns:xlunk'] = decode(attrs["xmlns:xlink"]);
+			this._attrs['xmlns:xlink'] = decode(attrs["xmlns:xlink"]);
 			this._attrs[k2] = decode(attrs[key]);
 		}
 		// Update rawString
