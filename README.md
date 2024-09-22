@@ -131,6 +131,9 @@ class HTMLElement{
 	ClassList classList
 	HTMLElement clone()
 	HTMLElement getElementById(string id)
+	HTMLElement createElement(string tag)
+	HTMLELement createElementNS("http://www.w3.org/1999/xhtml"| "http://www.w3.org/2000/svg"|"http://www.w3.org/1998/Math/MathML", string tag)
+	HTMLElement setAttributeNS(string namespaceURI,tag)
 	string text
 	string rawText
 	string tagName
@@ -216,6 +219,14 @@ Note: Use * for all elements.
 
 Query closest element by css selector. `null` if not found.
 
+### createElement(string tagName)
+
+create a DOM element by the given `tagName`
+
+### createElementNS(namespaceURI: "http://www.w3.org/1999/xhtml"|"http://www.w3.org/2000/svg"|"http://www.w3.org/1998/Math/MathML", tagName: string)
+
+creates  a DOM Element on a given `namespaceURI` from the `tagName`
+
 ### appendChild(node)
 
 Append a child node to childNodes
@@ -227,6 +238,10 @@ Parses the specified text as HTML and inserts the resulting nodes into the DOM t
 ### setAttribute(key: string, value: string)
 
 Set `value` to `key` attribute.
+
+### setAttributeNS(namespaceURI: "http://www.w3.org/1999/xhtml"|"http://www.w3.org/2000/svg"|"http://www.w3.org/1998/Math/MathML", tag: string)
+
+Set `value` to `key` attributeon a given `namespaceURI`.
 
 ### setAttributes(attrs: Record<string, string>)
 
